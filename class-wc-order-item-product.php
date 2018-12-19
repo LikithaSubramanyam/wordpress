@@ -34,6 +34,10 @@ class WC_Order_Item_Product extends WC_Order_Item {
 			'total'    => array(),
 		),
 		'item_length' =>0,  //added by nishanth
+		'item_width' =>0,  //added by likitha
+		'item_height' =>0,  //added by likitha
+		'item_vol_weigth' =>0,  //added by nishanth
+		'item_weigth' =>0,  //added by nishanth
 	);
 
 	/*
@@ -60,6 +64,51 @@ class WC_Order_Item_Product extends WC_Order_Item {
 	public function set_item_length( $value ) {
 		$value = wc_format_decimal( $value );
 		$this->set_prop( 'item_length',  $value  );
+	}
+
+	/**
+	 * Set Item Widith.
+	 *
+	 * added by likitha
+	 * @param int $value item width.
+	 */
+	public function set_item_width( $value ) {
+		$value = wc_format_decimal( $value );
+		$this->set_prop( 'item_width',  $value  );
+	}
+	
+
+	/**
+	 * Set Item Height.
+	 *
+	 * added by likitha
+	 * @param int $value item height.
+	 */
+	public function set_item_height( $value ) {
+		$value = wc_format_decimal( $value );
+		$this->set_prop( 'item_height',  $value  );
+	}
+
+	/**
+	 * Set Item vol_weigth.
+	 *
+	 * added by likitha
+	 * @param int $value item vol_weigth.
+	 */
+	public function set_item_vol_weigth( $value ) {
+		$value = wc_format_decimal( $value );
+		$this->set_prop( 'item_vol_weigth',  $value  );
+	}
+
+	/**
+	 * Set Item weigth.
+	 *
+	 * added by likitha
+	 * @param int $value item_weigth.
+	 */
+	public function set_item_weigth( $value ) {
+		$value = wc_format_decimal( $value );
+		$this->set_prop( 'item_weigth',  $value  );
 	}
 
 	/**
@@ -265,7 +314,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 	}
 
 	/**
-	 * Get quantity.
+	 * Get length.
 	 *  added by Nishanth
 	 * @param  string $context What the value is for. Valid values are 'view' and 'edit'.
 	 * @return int
@@ -273,6 +322,51 @@ class WC_Order_Item_Product extends WC_Order_Item {
 	public function get_item_length( $context = 'view' ) {
 		return $this->get_prop( 'item_length', $context );
 	}
+
+/**
+	 * Get width.
+	 *  added by Likitha
+	 * @param  string $context What the value is for. Valid values are 'view' and 'edit'.
+	 * @return int
+	 */
+	public function get_item_width( $context = 'view' ) {
+		return $this->get_prop( 'item_width', $context );
+	}
+
+	
+
+	/**
+	 * Get height.
+	 *  added by Likitha
+	 * @param  string $context What the value is for. Valid values are 'view' and 'edit'.
+	 * @return int
+	 */
+	public function get_item_height( $context = 'view' ) {
+		return $this->get_prop( 'item_height', $context );
+	}
+
+
+	/**
+	 * Get vol_weigth.
+	 *  added by Likitha
+	 * @param  string $context What the value is for. Valid values are 'view' and 'edit'.
+	 * @return int
+	 */
+	public function get_item_vol_weigth( $context = 'view' ) {
+		return $this->get_prop( 'item_vol_weigth', $context );
+	}
+
+
+	/**
+	 * Get weigth.
+	 *  added by Likitha
+	 * @param  string $context What the value is for. Valid values are 'view' and 'edit'.
+	 * @return int
+	 */
+	public function get_item_weigth( $context = 'view' ) {
+		return $this->get_prop( 'item_weigth', $context );
+	}
+
 
 	/**
 	 * Get tax class.

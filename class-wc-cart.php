@@ -1201,6 +1201,96 @@ class WC_Cart extends WC_Legacy_Cart {
 		return true;
 	}
 
+
+	/**
+	 * Set the item Width for an item in the cart.
+	 *
+	 * @param string $cart_item_key contains the id of the cart item.
+	 * @param int    $quantity contains the quantity of the item.
+	 * @return bool
+	 * added by Likitha
+	 */
+	public function set_item_width( $cart_item_key, $item_width = 0 ) {
+		//		if ( 0 === $quantity || $quantity < 0 ) {
+		//			do_action( 'woocommerce_before_cart_item_quantity_zero', $cart_item_key, $this );
+			//		unset( $this->cart_contents[ $cart_item_key ] );
+				//} else {
+					//$old_quantity                                      = $this->cart_contents[ $cart_item_key ]['quantity'];
+					$this->cart_contents[ $cart_item_key ]['item_width'] = $item_width;
+					//do_action( 'woocommerce_after_cart_item_quantity_update', $cart_item_key, $quantity, $old_quantity, $this );
+		//		}
+		
+		
+				return true;
+			}
+
+    
+	/**
+	 * Set the item Height for an item in the cart.
+	 *
+	 * @param string $cart_item_key contains the id of the cart item.
+	 * @param int    $quantity contains the quantity of the item.
+	 * @return bool
+	 * added by nishanth
+	 */
+	public function set_item_height( $cart_item_key, $item_height = 0 ) {
+		//		if ( 0 === $quantity || $quantity < 0 ) {
+		//			do_action( 'woocommerce_before_cart_item_quantity_zero', $cart_item_key, $this );
+			//		unset( $this->cart_contents[ $cart_item_key ] );
+				//} else {
+					//$old_quantity                                      = $this->cart_contents[ $cart_item_key ]['quantity'];
+					$this->cart_contents[ $cart_item_key ]['item_height'] = $item_height;
+					//do_action( 'woocommerce_after_cart_item_quantity_update', $cart_item_key, $quantity, $old_quantity, $this );
+		//		}
+		
+		
+				return true;
+			}
+
+			/**
+	 * Set the item volumetric weigth for an item in the cart.
+	 *
+	 * @param string $cart_item_key contains the id of the cart item.
+	 * @param int    $quantity contains the quantity of the item.
+	 * @return bool
+	 * added by nishanth
+	 */
+	public function set_item_vol_weigth( $cart_item_key, $item_vol_weigth = 0 ) {
+		//		if ( 0 === $quantity || $quantity < 0 ) {
+		//			do_action( 'woocommerce_before_cart_item_quantity_zero', $cart_item_key, $this );
+			//		unset( $this->cart_contents[ $cart_item_key ] );
+				//} else {
+					//$old_quantity                                      = $this->cart_contents[ $cart_item_key ]['quantity'];
+					$this->cart_contents[ $cart_item_key ]['item_vol_weigth'] = $item_vol_weigth;
+					//do_action( 'woocommerce_after_cart_item_quantity_update', $cart_item_key, $quantity, $old_quantity, $this );
+		//		}
+		
+		
+				return true;
+			}
+
+			/**
+	 * Set the item  weigth for an item in the cart.
+	 *
+	 * @param string $cart_item_key contains the id of the cart item.
+	 * @param int    $quantity contains the quantity of the item.
+	 * @return bool
+	 * added by nishanth
+	 */
+	public function set_item_weigth( $cart_item_key, $item_weigth = 0 ) {
+		//		if ( 0 === $quantity || $quantity < 0 ) {
+		//			do_action( 'woocommerce_before_cart_item_quantity_zero', $cart_item_key, $this );
+			//		unset( $this->cart_contents[ $cart_item_key ] );
+				//} else {
+					//$old_quantity                                      = $this->cart_contents[ $cart_item_key ]['quantity'];
+					$this->cart_contents[ $cart_item_key ]['item_weigth'] = $item_weigth;
+					//do_action( 'woocommerce_after_cart_item_quantity_update', $cart_item_key, $quantity, $old_quantity, $this );
+		//		}
+		
+		
+				return true;
+			}
+
 	/**
 	 * Get cart's owner.
 	 *

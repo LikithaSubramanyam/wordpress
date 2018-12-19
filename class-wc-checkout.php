@@ -399,6 +399,11 @@ class WC_Checkout {
 					'total_tax'    => $values['line_tax'],
 					'taxes'        => $values['line_tax_data'],
 					'item_length'  => $values['item_length'], //added by nishanth
+					'item_width'  => $values['item_width'], //added by likitha
+					'item_height'  => $values['item_height'], //added by likitha
+					'item_vol_weigth'  => $values['item_vol_weigth'], //added by likitha
+					'item_weigth'  => $values['item_weigth'], //added by likitha
+
 				)
 			);
 			//$item_length = $_POST['item_length'];

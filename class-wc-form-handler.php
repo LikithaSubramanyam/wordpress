@@ -618,12 +618,20 @@ class WC_Form_Handler {
 					}
 
 					$item_length = $_POST['item_length'];
+					$item_width = $_POST['item_width'];
+					$item_height = $_POST['item_height'];
+					$item_vol_weigth = $_POST['item_vol_weigth'];
+					$item_weigth = $_POST['item_weigth'];
 
 					if ( $passed_validation ) {
 						//start added by nishanth
 											 
 						WC()->cart->set_quantity( $cart_item_key, $quantity, false );
 						WC()->cart->set_item_length( $cart_item_key, $item_length );
+						WC()->cart->set_item_width( $cart_item_key, $item_width );
+						WC()->cart->set_item_height( $cart_item_key, $item_height );
+						WC()->cart->set_item_vol_weigth( $cart_item_key, $item_vol_weigth );
+						WC()->cart->set_item_weigth( $cart_item_key, $item_weigth );
 						$cart_updated = true;
 					}
 				}
