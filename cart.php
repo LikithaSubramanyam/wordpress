@@ -177,21 +177,19 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 						<td  >
 						<input
-							type="number"
+							type="decimal"
 							id="sum<?php echo esc_attr($item_crat_cnt);?>"
 							id="<?php echo esc_attr( uniqid( 'item_vol_weigth_' )); ?>"
-							min="1" 
+							min="0" 
                             max="" 
 							class="vol_weight input-text item_vol_weigth text"
-							min="<?php echo esc_attr( $min_value ); ?>"
-							max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
+							
 							name="cart_<?php echo esc_attr( $cart_item_key ); ?>_item_vol_weigth" 
 							value="<?php echo esc_attr($cart_item['item_vol_weigth'] ); ?>"
 							title="<?php echo esc_attr_x( 'item_vol_weigth', 'Product total volumetric weigth input tooltip', 'woocommerce' ); ?>"
 							style="width:50%"
 							required
-							pattern="[0-9]*"
-							pattern="<?php echo esc_attr( $pattern ); ?>"
+							
 							inputmode="<?php echo esc_attr( 'numeric' ); ?>"
 							
 							/>
