@@ -18,11 +18,16 @@ defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_before_cart' ); ?>
 
 
+
+
 <h1>nishanth</h1>
-<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+
+<form class="woocommerce-cart-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 	<table style="width:150%" class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
 		<thead>
+		
 			<tr>
 		
 				<th class="product-remove">&nbsp;</th>
@@ -32,14 +37,15 @@ do_action( 'woocommerce_before_cart' ); ?>
                 <th class="product-width"><?php esc_html_e( 'Width(cm)', 'woocommerce' ); ?></th>
                 <th class="product-height"><?php esc_html_e( 'Height(cm)', 'woocommerce' ); ?></th>
 				<th class="product-tvw"><?php esc_html_e( 'Total Volumetirc Weigth(kg)', 'woocommerce' ); ?></th>
-				<th class="product-weigth"><?php esc_html_e( 'Weigth(kg)', 'woocommerce' ); ?></th>
+				<th class="product-weigth"><?php esc_html_e( 'Weigth(Per Piece)(Kg)', 'woocommerce' ); ?></th>
 				<th class="product-subtotal"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
-			<?php
+			<?php 
+			$item_crat_cnt= 0;
 			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 				$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 				$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
@@ -66,12 +72,19 @@ do_action( 'woocommerce_before_cart' ); ?>
                     
 						<td  data-title="<?php esc_attr_e( 'Package Type', 'woocommerce' ); ?>">
 
-						<select>
-						<option value="select">Select a Package Type</option>
-                        <option value="bags">Bags</option>
-  						<option value="bales">Bales</option>
-  						<option value="boxes">Boxes</option>
-  						<option value="pallet">Pallets</option>	
+						<select 
+						   id="<?php echo esc_attr( uniqid( 'item_packagetype_' )); ?>"
+							class="input-text item_packagetype text"
+							required
+							
+							name="cart_<?php echo esc_attr( $cart_item_key ); ?>_item_packagetype"
+							required 
+							title="<?php echo esc_attr_x( 'item_packagetype', 'Product packagetype input tooltip', 'woocommerce' ); ?>">
+						<option  value="">Select a Package Type</option>
+                        <option value="bags" <?php if(esc_attr($cart_item['item_packagetype'])==='bags') {echo esc_attr('selected');} ?>  >Bags</option>
+  						<option value="bales" <?php if(esc_attr($cart_item['item_packagetype'])==='bales') {echo esc_attr('selected');} ?> >Bales</option>
+  						<option value="boxes" <?php if(esc_attr($cart_item['item_packagetype'])==='boxes') {echo esc_attr('selected');} ?> >Boxes</option>
+  						<option value="pallet" <?php if(esc_attr($cart_item['item_packagetype'])==='pallet') {echo esc_attr('selected');} ?> >Pallets</option>	
 						</select>
 						</td>
 						
@@ -92,51 +105,72 @@ do_action( 'woocommerce_before_cart' ); ?>
 						echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
 						?>
 						</td>
-						<td>
+						<td class="product-length" data-title="<?php esc_attr_e( 'Length', 'woocommerce' ); ?>">
 						<input
 							type="number"
+							class="txt"
+							id="num1<?php echo esc_attr($item_crat_cnt);?>" 
 							id="<?php echo esc_attr( uniqid( 'item_length_' )); ?>"
-							class="input-text item_length text"
+							class="calc_input input-text item_length text"
+							min="1" 
+                            max="" 
 							min="<?php echo esc_attr( $min_value ); ?>"
 							max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
-							name="<?php echo esc_attr( 'item_length' ); ?>"
+							name="cart_<?php echo esc_attr( $cart_item_key ); ?>_item_length" 
 							value="<?php echo esc_attr($cart_item['item_length'] ); ?>"
+							required
 							title="<?php echo esc_attr_x( 'item_length', 'Product quantity input tooltip', 'woocommerce' ); ?>"
 							style="width:50%"
+							pattern="[0-9]*"
 							pattern="<?php echo esc_attr( $pattern ); ?>"
 							inputmode="<?php echo esc_attr( 'numeric' ); ?>"
-							/>
+							onfocusout="myfunction(<?php echo esc_attr($item_crat_cnt);?>)"
 						
+							/>
+					
+			
 						</td>
 						<td>
 						<input
 							type="number"
+							id="num2<?php echo esc_attr($item_crat_cnt);?>"
 							id="<?php echo esc_attr( uniqid( 'item_width_' )); ?>"
-							class="input-text item_width text"
+							class="calc_input input-text item_width text"
+							min="1" 
+                            max="" 
 							min="<?php echo esc_attr( $min_value ); ?>"
 							max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
-							name="<?php echo esc_attr( 'item_width' ); ?>"
+							name="cart_<?php echo esc_attr( $cart_item_key ); ?>_item_width" 
 							value="<?php echo esc_attr($cart_item['item_width'] ); ?>"
 							title="<?php echo esc_attr_x( 'item_width', 'Product quantity input tooltip', 'woocommerce' ); ?>"
 							style="width:50%"
+							required
+							pattern="[0-9]*"
 							pattern="<?php echo esc_attr( $pattern ); ?>"
 							inputmode="<?php echo esc_attr( 'numeric' ); ?>"
+							onfocusout="myfunction(<?php echo esc_attr($item_crat_cnt);?>)"
 							/>
-						
+							
 						</td>
 						<td  >
 						<input
 							type="number"
+							id="num3<?php echo esc_attr($item_crat_cnt);?>"
 							id="<?php echo esc_attr( uniqid( 'item_height_' )); ?>"
-							class="input-text item_height text"
+							class="calc_input input-text item_height text"
+							min="1" 
+                            max="" 
 							min="<?php echo esc_attr( $min_value ); ?>"
 							max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
-							name="<?php echo esc_attr( 'item_height' ); ?>"
+							name="cart_<?php echo esc_attr( $cart_item_key ); ?>_item_height" 
 							value="<?php echo esc_attr($cart_item['item_height'] ); ?>"
 							title="<?php echo esc_attr_x( 'item_height', 'Product height input tooltip', 'woocommerce' ); ?>"
 							style="width:50%"
+							required
+							pattern="[0-9]*"
 							pattern="<?php echo esc_attr( $pattern ); ?>"
 							inputmode="<?php echo esc_attr( 'numeric' ); ?>"
+							onfocusout="myfunction(<?php echo esc_attr($item_crat_cnt);?>)"
 							/>
 						
 						</td>
@@ -144,16 +178,22 @@ do_action( 'woocommerce_before_cart' ); ?>
 						<td  >
 						<input
 							type="number"
+							id="sum<?php echo esc_attr($item_crat_cnt);?>"
 							id="<?php echo esc_attr( uniqid( 'item_vol_weigth_' )); ?>"
-							class="input-text item_vol_weigth text"
+							min="1" 
+                            max="" 
+							class="vol_weight input-text item_vol_weigth text"
 							min="<?php echo esc_attr( $min_value ); ?>"
 							max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
-							name="<?php echo esc_attr( 'item_vol_weigth' ); ?>"
+							name="cart_<?php echo esc_attr( $cart_item_key ); ?>_item_vol_weigth" 
 							value="<?php echo esc_attr($cart_item['item_vol_weigth'] ); ?>"
 							title="<?php echo esc_attr_x( 'item_vol_weigth', 'Product total volumetric weigth input tooltip', 'woocommerce' ); ?>"
 							style="width:50%"
+							required
+							pattern="[0-9]*"
 							pattern="<?php echo esc_attr( $pattern ); ?>"
 							inputmode="<?php echo esc_attr( 'numeric' ); ?>"
+							
 							/>
 						
 						</td>
@@ -162,14 +202,16 @@ do_action( 'woocommerce_before_cart' ); ?>
 							type="number"
 							id="<?php echo esc_attr( uniqid( 'item_weigth_' )); ?>"
 							class="input-text item_weigth text"
-							min="<?php echo esc_attr( $min_value ); ?>"
-							max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
-							name="<?php echo esc_attr( 'item_weigth' ); ?>"
+							min="1" 
+                            max="" 
+							required
+							name="cart_<?php echo esc_attr( $cart_item_key ); ?>_item_weigth" 
 							value="<?php echo esc_attr($cart_item['item_weigth'] ); ?>"
 							title="<?php echo esc_attr_x( 'item_weigth', 'Product weigth input tooltip', 'woocommerce' ); ?>"
 							style="width:50%"
+							pattern="[0-9]*"
 							pattern="<?php echo esc_attr( $pattern ); ?>"
-							inputmode="<?php echo esc_attr( 'numeric' ); ?>"
+							
 							/>
 						
 						</td>
@@ -177,12 +219,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 						<td  >
 						
 							<?php
-								echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+								echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'],  $cart_item['item_weigth']), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
 							?>
 						</td>
 					</tr>
 					<?php
 				}
+				$item_crat_cnt = $item_crat_cnt + 1;
 			}
 			?>
 

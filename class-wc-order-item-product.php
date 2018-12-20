@@ -38,6 +38,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 		'item_height' =>0,  //added by likitha
 		'item_vol_weigth' =>0,  //added by nishanth
 		'item_weigth' =>0,  //added by nishanth
+		'item_packagetype' =>'',  //added by nishanth
 	);
 
 	/*
@@ -110,6 +111,19 @@ class WC_Order_Item_Product extends WC_Order_Item {
 		$value = wc_format_decimal( $value );
 		$this->set_prop( 'item_weigth',  $value  );
 	}
+
+
+	/**
+	 * Set Item item_packagetype.
+	 *
+	 * added by nishanth
+	 * @param int $value item Length.
+	 */
+	public function set_item_packagetype( $value ) {
+		//$value = wc_format_decimal( $value );
+		$this->set_prop( 'item_packagetype',  $value  );
+	}
+
 
 	/**
 	 * Set tax class.
@@ -367,6 +381,15 @@ class WC_Order_Item_Product extends WC_Order_Item {
 		return $this->get_prop( 'item_weigth', $context );
 	}
 
+	/**
+	 * Get packagetype.
+	 *  added by Likitha
+	 * @param  string $context What the value is for. Valid values are 'view' and 'edit'.
+	 * @return int
+	 */
+	public function get_item_packagetype( $context = 'view' ) {
+		return $this->get_prop( 'item_packagetype', $context );
+	}
 
 	/**
 	 * Get tax class.

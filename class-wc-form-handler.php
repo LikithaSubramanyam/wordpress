@@ -111,7 +111,7 @@ class WC_Form_Handler {
 
 			// Validation: Required fields.
 			if ( ! empty( $field['required'] ) && empty( $_POST[ $key ] ) ) {
-				wc_add_notice( sprintf( __( '%s is a required field.', 'woocommerce' ), $field['label'] ), 'error' );
+				wc_add_notice( sprintf( __( '%s is a required feld.', 'woocommerce' ), $field['label'] ), 'error' );
 			}
 
 			if ( ! empty( $_POST[ $key ] ) ) {
@@ -617,11 +617,12 @@ class WC_Form_Handler {
 						$passed_validation = false;
 					}
 
-					$item_length = $_POST['item_length'];
-					$item_width = $_POST['item_width'];
-					$item_height = $_POST['item_height'];
-					$item_vol_weigth = $_POST['item_vol_weigth'];
-					$item_weigth = $_POST['item_weigth'];
+					$item_length = $_POST['cart_'.$cart_item_key.'_item_length']; 
+					$item_width = $_POST['cart_'.$cart_item_key.'_item_width'];
+					$item_height = $_POST['cart_'.$cart_item_key.'_item_height'];
+					$item_vol_weigth = $_POST['cart_'.$cart_item_key.'_item_vol_weigth'];;
+					$item_weigth = $_POST['cart_'.$cart_item_key.'_item_weigth'];
+					$item_packagetype = $_POST['cart_'.$cart_item_key.'_item_packagetype'];
 
 					if ( $passed_validation ) {
 						//start added by nishanth
@@ -632,6 +633,7 @@ class WC_Form_Handler {
 						WC()->cart->set_item_height( $cart_item_key, $item_height );
 						WC()->cart->set_item_vol_weigth( $cart_item_key, $item_vol_weigth );
 						WC()->cart->set_item_weigth( $cart_item_key, $item_weigth );
+						WC()->cart->set_item_packagetype( $cart_item_key, $item_packagetype );
 						$cart_updated = true;
 					}
 				}

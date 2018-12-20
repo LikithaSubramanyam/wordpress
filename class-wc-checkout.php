@@ -403,6 +403,7 @@ class WC_Checkout {
 					'item_height'  => $values['item_height'], //added by likitha
 					'item_vol_weigth'  => $values['item_vol_weigth'], //added by likitha
 					'item_weigth'  => $values['item_weigth'], //added by likitha
+					'item_packagetype'  => $values['item_packagetype'], //added by likitha
 
 				)
 			);

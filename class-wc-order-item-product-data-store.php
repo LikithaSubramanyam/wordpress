@@ -23,7 +23,7 @@ class WC_Order_Item_Product_Data_Store extends Abstract_WC_Order_Item_Type_Data_
 	 * @var array
 	 * length added by nishanth                                                                                                                                                                                                                                       
 	 */
-	protected $internal_meta_keys = array( '_product_id', '_variation_id', '_qty', '_tax_class', '_line_subtotal', '_line_subtotal_tax', '_line_total', '_line_tax', '_line_tax_data','_item_length','_item_width','_item_height','_item_vol_weigth','_item_weigth');
+	protected $internal_meta_keys = array( '_product_id', '_variation_id', '_qty', '_tax_class', '_line_subtotal', '_line_subtotal_tax', '_line_total', '_line_tax', '_line_tax_data','_item_length','_item_width','_item_height','_item_vol_weigth','_item_weigth', '_item_packagetype');
 
 	/**
 	 * Read/populate data properties specific to this order item.
@@ -48,6 +48,7 @@ class WC_Order_Item_Product_Data_Store extends Abstract_WC_Order_Item_Type_Data_
 				'item_height'  => get_metadata( 'order_item', $id, '_item_height', true ),  //added by likitha 
 				'item_vol_weigth'  => get_metadata( 'order_item', $id, '_item_vol_weigth', true ),  //added by likitha 
 				'item_weigth'  => get_metadata( 'order_item', $id, '_item_weigth', true ),  //added by likitha 
+				'item_packagetype'  => get_metadata( 'order_item', $id, '_item_packagetype', true ),  //added by likitha 
 			)
 		);
 		$item->set_object_read( true );
@@ -78,6 +79,7 @@ class WC_Order_Item_Product_Data_Store extends Abstract_WC_Order_Item_Type_Data_
 			'_item_height'		 => 'item_height',  //added by likitha
 			'_item_vol_weigth'		 => 'item_vol_weigth',  //added by likitha
 			'_item_weigth'		 => 'item_weigth',  //added by likitha
+			'_item_packagetype'		 => 'item_packagetype',  //added by likitha
 		);
 		$props_to_update   = $this->get_props_to_update( $item, $meta_key_to_props, 'order_item' );
 

@@ -1291,6 +1291,30 @@ class WC_Cart extends WC_Legacy_Cart {
 				return true;
 			}
 
+
+			/**
+	 * Set the item Length for an item in the cart.
+	 *
+	 * @param string $cart_item_key contains the id of the cart item.
+	 * @param int    $quantity contains the quantity of the item.
+	 * @return bool
+	 * added by nishanth
+	 */
+	public function set_item_packagetype( $cart_item_key, $item_packagetype ) {
+		//		if ( 0 === $quantity || $quantity < 0 ) {
+		//			do_action( 'woocommerce_before_cart_item_quantity_zero', $cart_item_key, $this );
+			//		unset( $this->cart_contents[ $cart_item_key ] );
+				//} else {
+					//$old_quantity                                      = $this->cart_contents[ $cart_item_key ]['quantity'];
+					$this->cart_contents[ $cart_item_key ]['item_packagetype'] = $item_packagetype;
+					//do_action( 'woocommerce_after_cart_item_quantity_update', $cart_item_key, $quantity, $old_quantity, $this );
+		//		}
+		
+		
+				return true;
+			}
+		
+
 	/**
 	 * Get cart's owner.
 	 *
@@ -1948,30 +1972,15 @@ class WC_Cart extends WC_Legacy_Cart {
 	 * @param int        $quantity Quantity being purchased.
 	 * @return string formatted price
 	 */
-	public function get_product_subtotal( $product, $quantity ) {
+
+	 // calculation for totalprice
+	public function get_product_subtotal( $product, $quantity, $item_weigth ) {
 		$price = $product->get_price();
 
-		if ( $product->is_taxable() ) {
-
-			if ( $this->display_prices_including_tax() ) {
-				$row_price        = wc_get_price_including_tax( $product, array( 'qty' => $quantity ) );
-				$product_subtotal = wc_price( $row_price );
-
-				if ( ! wc_prices_include_tax() && $this->get_subtotal_tax() > 0 ) {
-					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
-				}
-			} else {
-				$row_price        = wc_get_price_excluding_tax( $product, array( 'qty' => $quantity ) );
-				$product_subtotal = wc_price( $row_price );
-
-				if ( wc_prices_include_tax() && $this->get_subtotal_tax() > 0 ) {
-					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
-				}
-			}
-		} else {
-			$row_price        = $price * $quantity;
+		
+			$row_price        = $price * $quantity * $item_weigth;
 			$product_subtotal = wc_price( $row_price );
-		}
+		
 
 		return apply_filters( 'woocommerce_cart_product_subtotal', $product_subtotal, $product, $quantity, $this );
 	}
